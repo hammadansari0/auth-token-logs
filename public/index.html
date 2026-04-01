@@ -1,68 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
   <title>API Docs + Tester</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="section">
-    <h2>🔔 Live Logs</h2>
-    <div id="logContainer"></div>
+
+  <!-- Title bar -->
+  <div class="titlebar">
+    <div class="titlebar-left">
+      <span class="titlebar-icon">&#128196;</span>
+      <span class="titlebar-title">API Documentation &amp; Tester &#8212; Microsoft Internet Explorer</span>
+    </div>
+    <div class="titlebar-buttons">
+      <button class="tb-btn">&#8212;</button>
+      <button class="tb-btn">&#9633;</button>
+      <button class="tb-btn tb-close">&#10005;</button>
+    </div>
   </div>
 
-  <h1>API Documentation</h1>
+  <!-- Menu bar -->
+  <div class="menubar">
+    <span class="menu-item"><u>F</u>ile</span>
+    <span class="menu-item"><u>E</u>dit</span>
+    <span class="menu-item"><u>V</u>iew</span>
+    <span class="menu-item">Fa<u>v</u>orites</span>
+    <span class="menu-item"><u>T</u>ools</span>
+    <span class="menu-item"><u>H</u>elp</span>
+  </div>
 
-  <div class="section">
-    <h2>Login</h2>
-    <p>POST /login</p>
-    <textarea id="loginBody">
-{
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="tool-btn" title="Back">&#9664; Back</button>
+    <button class="tool-btn" title="Forward">Forward &#9654;</button>
+    <div class="toolbar-sep"></div>
+    <button class="tool-btn" title="Stop">&#9634; Stop</button>
+    <button class="tool-btn" title="Refresh">&#8635; Refresh</button>
+    <button class="tool-btn" title="Home">&#127968; Home</button>
+  </div>
+
+  <!-- Address bar -->
+  <div class="addressbar">
+    <span class="addressbar-label">Address</span>
+    <input class="addressbar-input" value="http://localhost/index.html" readonly>
+    <button class="addressbar-go">Go</button>
+  </div>
+
+  <!-- Page content -->
+  <div class="page-content">
+
+    <h1 class="page-title">&#128196;&nbsp;API Documentation &amp; Tester</h1>
+    <hr class="win-hr">
+
+    <!-- Live Logs -->
+    <fieldset class="win-fieldset">
+      <legend class="win-legend">&#128308;&nbsp;Live Logs</legend>
+      <div id="logContainer" class="log-container">
+        <div class="log-placeholder">Waiting for incoming requests...</div>
+      </div>
+    </fieldset>
+
+    <!-- Login -->
+    <fieldset class="win-fieldset">
+      <legend class="win-legend">&#128274;&nbsp;Login</legend>
+      <table class="form-table">
+        <tr>
+          <td class="form-label">Endpoint:</td>
+          <td><code class="endpoint-code">POST /login</code></td>
+        </tr>
+        <tr>
+          <td class="form-label">Request Body:</td>
+          <td>
+            <textarea id="loginBody" class="win-textarea">{
   "username": "admin",
   "password": "admin123"
-}
-  </textarea>
-    <button onclick="login()">Login</button>
-  </div>
+}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button class="win-btn" onclick="login()">Login</button></td>
+        </tr>
+      </table>
+    </fieldset>
 
-  <div class="section">
-    <h2>Token</h2>
-    <input id="token" placeholder="Paste token here">
-  </div>
+    <!-- Token -->
+    <fieldset class="win-fieldset">
+      <legend class="win-legend">&#128737;&nbsp;Authorization Token</legend>
+      <table class="form-table">
+        <tr>
+          <td class="form-label">Bearer Token:</td>
+          <td><input id="token" class="win-input" placeholder="Paste token here or click Login above"></td>
+        </tr>
+      </table>
+    </fieldset>
 
-  <div class="section">
-    <h2>Profile API</h2>
-
-    <select id="method">
-      <option>GET</option>
-      <option>POST</option>
-      <option>PUT</option>
-      <option>PATCH</option>
-      <option>DELETE</option>
-    </select>
-
-    <input id="endpoint" value="/profile?name+email">
-
-    <textarea id="body">
-{
+    <!-- Profile API -->
+    <fieldset class="win-fieldset">
+      <legend class="win-legend">&#127760;&nbsp;Profile API</legend>
+      <table class="form-table">
+        <tr>
+          <td class="form-label">Method:</td>
+          <td>
+            <select id="method" class="win-select">
+              <option>GET</option>
+              <option>POST</option>
+              <option>PUT</option>
+              <option>PATCH</option>
+              <option>DELETE</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="form-label">Endpoint:</td>
+          <td><input id="endpoint" class="win-input" value="/profile?name+email"></td>
+        </tr>
+        <tr>
+          <td class="form-label">Request Body:</td>
+          <td>
+            <textarea id="body" class="win-textarea">{
   "name": "John",
   "email": "john@test.com",
   "phone": "123456",
   "gender": "male",
   "blood_group_id": 1
-}
-  </textarea>
+}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button class="win-btn win-btn-default" onclick="sendRequest()">Send Request</button></td>
+        </tr>
+      </table>
+    </fieldset>
 
-    <button onclick="sendRequest()">Send Request</button>
+    <!-- Response -->
+    <fieldset class="win-fieldset">
+      <legend class="win-legend">&#128203;&nbsp;Response</legend>
+      <pre id="response" class="win-pre">// Response will appear here...</pre>
+    </fieldset>
+
+    <p class="footer-link">
+      <a href="/db.html" class="win-link">&#128450;&nbsp;Go to DB Viewer &rarr;</a>
+    </p>
+
   </div>
 
-  <div class="section">
-    <h2>Response</h2>
-    <pre id="response"></pre>
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span class="statusbar-cell">&#9679;&nbsp;Done</span>
+    <span class="statusbar-sep"></span>
+    <span class="statusbar-cell">Local intranet</span>
+    <span class="statusbar-sep"></span>
+    <span class="statusbar-cell">&#128275;&nbsp;Trusted Site</span>
   </div>
-
-  <a href="/db.html">Go to DB Viewer →</a>
 
   <script src="app.js"></script>
 </body>
