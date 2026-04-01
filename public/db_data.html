@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DB Viewer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Database Viewer</h1>
+
+<button onclick="loadData()">Load Data</button>
+
+<div id="tables"></div>
+
+<h2>Relations Graph</h2>
+<svg id="graph" width="800" height="400"></svg>
+
+<a href="/">← Back</a>
+
+<script>
+async function loadData() {
+  const res = await fetch('/data');
+  const data = await res.json();
+
+  renderTables(data);
+  renderGraph(data);
+}
+
+// 🧾 TABLE VIEW
+function renderTables(data) {
+  let html = '';
+
+  for (let table in data) {
+    const rows = data[table];
+
+    html += `<div class="section"><h2>${table}</h2>`;
+
+    if (rows.length === 0) {
+      html += '<p>No data</p></div>';
+      continue;
+    }
+
+    html += '<table><tr>';
+
+    // headers
+    Object.keys(rows[0]).forEach(col => {
+      html += `<th>${col}</th>`;
+    });
+
+    html += '</tr>';
+
+    // rows
+    rows.forEach(r => {
+      html += '<tr>';
+      Object.values(r).forEach(val => {
+        html += `<td>${val}</td>`;
+      });
+      html += '</tr>';
+    });
+
+    html += '</table></div>';
+  }
+
+  document.getElementById('tables').innerHTML = html;
+}
+
+// 🔗 GRAPH VIEW (simple relationships)
+function renderGraph(data) {
+  const svg = document.getElementById('graph');
+  svg.innerHTML = '';
+
+  const tables = Object.keys(data);
+
+  const positions = {};
+  tables.forEach((t, i) => {
+    positions[t] = { x: 150 * i + 50, y: 50 };
+  });
+
+  // draw boxes
+  tables.forEach(t => {
+    const { x, y } = positions[t];
+
+    svg.innerHTML += `
+      <rect x="${x}" y="${y}" width="120" height="40" fill="#007bff"/>
+      <text x="${x+10}" y="${y+25}" fill="white">${t}</text>
+    `;
+  });
+
+  // 🔥 manually define relations (you can extend)
+  const relations = [
+    ['profiles', 'users'],
+    ['profiles', 'blood_groups'],
+    ['tokens', 'users'],
+    ['logs', 'tokens']
+  ];
+
+  relations.forEach(([a, b]) => {
+    const p1 = positions[a];
+    const p2 = positions[b];
+
+    svg.innerHTML += `
+      <line x1="${p1.x+60}" y1="${p1.y+40}"
+            x2="${p2.x+60}" y2="${p2.y}"
+            stroke="black"/>
+    `;
+  });
+}
+</script>
+
+</body>
+</html>

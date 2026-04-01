@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>API Docs + Tester</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="section">
+    <h2>🔔 Live Logs</h2>
+    <div id="logContainer"></div>
+  </div>
+
+  <h1>API Documentation</h1>
+
+  <div class="section">
+    <h2>Login</h2>
+    <p>POST /login</p>
+    <textarea id="loginBody">
+{
+  "username": "admin",
+  "password": "admin123"
+}
+  </textarea>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="section">
+    <h2>Token</h2>
+    <input id="token" placeholder="Paste token here">
+  </div>
+
+  <div class="section">
+    <h2>Profile API</h2>
+
+    <select id="method">
+      <option>GET</option>
+      <option>POST</option>
+      <option>PUT</option>
+      <option>PATCH</option>
+      <option>DELETE</option>
+    </select>
+
+    <input id="endpoint" value="/profile?name+email">
+
+    <textarea id="body">
+{
+  "name": "John",
+  "email": "john@test.com",
+  "phone": "123456",
+  "gender": "male",
+  "blood_group_id": 1
+}
+  </textarea>
+
+    <button onclick="sendRequest()">Send Request</button>
+  </div>
+
+  <div class="section">
+    <h2>Response</h2>
+    <pre id="response"></pre>
+  </div>
+
+  <a href="/db.html">Go to DB Viewer →</a>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

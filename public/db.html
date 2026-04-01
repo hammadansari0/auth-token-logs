@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DB Viewer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Database Structure</h1>
+
+<button onclick="loadSchema()">Load Schema</button>
+
+<div id="schema"></div>
+
+<a href="/db_data.html">Data</a>
+<a href="/">← Back</a>
+
+<script>
+async function loadSchema() {
+  const res = await fetch('/schema');
+  const data = await res.json();
+
+  let html = '';
+
+  for (let table in data) {
+    html += `<div class="section"><h2>${table}</h2><ul>`;
+
+    data[table].forEach(col => {
+      html += `<li>${col.name} (${col.type})</li>`;
+    });
+
+    html += '</ul></div>';
+  }
+
+  document.getElementById('schema').innerHTML = html;
+}
+</script>
+
+</body>
+</html>

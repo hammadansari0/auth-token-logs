@@ -1,0 +1,59 @@
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: #f4f4f4;
+}
+
+.section {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+}
+#logContainer {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.log {
+  background: #222;
+  color: #0f0;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: left;
+}
+
+th {
+  background: #007bff;
+  color: white;
+}
